@@ -1,90 +1,94 @@
--- GUI có Minimize + Close
+-- Gui Script: void ware andepztrai17
+-- GUI cơ bản test hiển thị + avatar xoay
+-- by An17
+
+-- Tạo ScreenGui
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "VoidWareGui"
+ScreenGui.Parent = game:GetService("CoreGui")
+
+-- Tạo Frame chính
+local MainFrame = Instance.new("Frame")
+MainFrame.Size = UDim2.new(0, 400, 0, 300)
+MainFrame.Position = UDim2.new(0.3, 0, 0.3, 0)
+MainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+MainFrame.BorderSizePixel = 0
+MainFrame.Active = true
+MainFrame.Draggable = true
+MainFrame.Parent = ScreenGui
+
+-- Bo góc
+local UICorner = Instance.new("UICorner")
+UICorner.CornerRadius = UDim.new(0, 12)
+UICorner.Parent = MainFrame
+
+-- Tiêu đề
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(1, -50, 0, 40)
+Title.Position = UDim2.new(0, 10, 0, 0)
+Title.BackgroundTransparency = 1
+Title.Text = "void ware - andepztrai17"
+Title.TextColor3 = Color3.fromRGB(255,255,255)
+Title.Font = Enum.Font.SourceSansBold
+Title.TextSize = 20
+Title.TextXAlignment = Enum.TextXAlignment.Left
+Title.Parent = MainFrame
+
+-- Nút thu nhỏ (_)
+local Minimize = Instance.new("TextButton")
+Minimize.Size = UDim2.new(0, 30, 0, 30)
+Minimize.Position = UDim2.new(1, -70, 0, 5)
+Minimize.Text = "_"
+Minimize.TextSize = 20
+Minimize.BackgroundColor3 = Color3.fromRGB(40,40,40)
+Minimize.TextColor3 = Color3.fromRGB(255,255,255)
+Minimize.Parent = MainFrame
+Instance.new("UICorner", Minimize).CornerRadius = UDim.new(1,0)
+
+-- Nút thoát (X)
+local Close = Instance.new("TextButton")
+Close.Size = UDim2.new(0, 30, 0, 30)
+Close.Position = UDim2.new(1, -35, 0, 5)
+Close.Text = "X"
+Close.TextSize = 20
+Close.BackgroundColor3 = Color3.fromRGB(120,0,0)
+Close.TextColor3 = Color3.fromRGB(255,255,255)
+Close.Parent = MainFrame
+Instance.new("UICorner", Close).CornerRadius = UDim.new(1,0)
+
+-- Cục tròn avatar xoay
+local Avatar = Instance.new("ImageLabel")
+Avatar.Size = UDim2.new(0,120,0,120)
+Avatar.Position = UDim2.new(0.5, -60, 0.5, -60)
+Avatar.BackgroundTransparency = 1
+Avatar.Parent = MainFrame
+
+-- Load ảnh avatar Roblox (theo user ID)
 local Players = game:GetService("Players")
-local player = Players.LocalPlayer
-local gui = Instance.new("ScreenGui")
-gui.Parent = player:WaitForChild("PlayerGui")
+local userId = Players.LocalPlayer.UserId
+local thumbType = Enum.ThumbnailType.HeadShot
+local thumbSize = Enum.ThumbnailSize.Size420x420
+local content, isReady = Players:GetUserThumbnailAsync(userId, thumbType, thumbSize)
+Avatar.Image = content
 
--- Khung chính
-local mainFrame = Instance.new("Frame")
-mainFrame.Size = UDim2.new(0, 300, 0, 200)
-mainFrame.Position = UDim2.new(0.35, 0, 0.3, 0)
-mainFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-mainFrame.Parent = gui
-
-local corner = Instance.new("UICorner")
-corner.CornerRadius = UDim.new(0, 12)
-corner.Parent = mainFrame
-
--- Label tiêu đề
-local title = Instance.new("TextLabel")
-title.Text = "Demo GUI"
-title.Size = UDim2.new(1, -60, 0, 30)
-title.BackgroundTransparency = 1
-title.TextColor3 = Color3.fromRGB(255,255,255)
-title.Font = Enum.Font.SourceSansBold
-title.TextScaled = true
-title.Parent = mainFrame
-
--- Nút minimize "_"
-local minimizeBtn = Instance.new("TextButton")
-minimizeBtn.Text = "_"
-minimizeBtn.Size = UDim2.new(0, 30, 0, 30)
-minimizeBtn.Position = UDim2.new(1, -60, 0, 0)
-minimizeBtn.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-minimizeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-minimizeBtn.Parent = mainFrame
-Instance.new("UICorner", minimizeBtn).CornerRadius = UDim.new(0, 6)
-
--- Nút close "X"
-local closeBtn = Instance.new("TextButton")
-closeBtn.Text = "X"
-closeBtn.Size = UDim2.new(0, 30, 0, 30)
-closeBtn.Position = UDim2.new(1, -30, 0, 0)
-closeBtn.BackgroundColor3 = Color3.fromRGB(100, 50, 50)
-closeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-closeBtn.Parent = mainFrame
-Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 6)
-
--- Nút mở lại (floating circle)
-local reopenBtn = Instance.new("TextButton")
-reopenBtn.Text = "+"
-reopenBtn.Size = UDim2.new(0, 40, 0, 40)
-reopenBtn.Position = UDim2.new(0, 10, 0.8, 0)
-reopenBtn.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
-reopenBtn.TextColor3 = Color3.fromRGB(255,255,255)
-reopenBtn.Visible = false
-reopenBtn.Parent = gui
-local reopenCorner = Instance.new("UICorner")
-reopenCorner.CornerRadius = UDim.new(1, 0)
-reopenCorner.Parent = reopenBtn
-
--- Nút test trong GUI
-local testBtn = Instance.new("TextButton")
-testBtn.Text = "Bấm thử"
-testBtn.Size = UDim2.new(0, 120, 0, 40)
-testBtn.Position = UDim2.new(0.5, -60, 0.6, 0)
-testBtn.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-testBtn.TextColor3 = Color3.fromRGB(255,255,255)
-testBtn.Parent = mainFrame
-Instance.new("UICorner", testBtn).CornerRadius = UDim.new(0, 10)
-
-testBtn.MouseButton1Click:Connect(function()
-	testBtn.Text = "Đã bấm!"
+-- Xoay avatar liên tục
+spawn(function()
+    while task.wait(0.03) do
+        Avatar.Rotation = Avatar.Rotation + 2
+    end
 end)
 
--- Sự kiện minimize
-minimizeBtn.MouseButton1Click:Connect(function()
-	mainFrame.Visible = false
-	reopenBtn.Visible = true
+-- Chức năng nút
+local minimized = false
+Minimize.MouseButton1Click:Connect(function()
+    minimized = not minimized
+    for _, child in pairs(MainFrame:GetChildren()) do
+        if child ~= Title and child ~= Minimize and child ~= Close then
+            child.Visible = not minimized
+        end
+    end
 end)
 
--- Sự kiện reopen
-reopenBtn.MouseButton1Click:Connect(function()
-	mainFrame.Visible = true
-	reopenBtn.Visible = false
-end)
-
--- Sự kiện close
-closeBtn.MouseButton1Click:Connect(function()
-	gui:Destroy()
+Close.MouseButton1Click:Connect(function()
+    ScreenGui:Destroy()
 end)
